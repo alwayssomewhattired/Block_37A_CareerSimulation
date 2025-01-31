@@ -13,8 +13,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id  String  @id@default(uuid())
-  username  String  @unique
-  password  String  @unique
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  password String @unique
+
+  items Item[]
+  // reviews  Review[]
+  comments Comment[]
+}
+
+model Item {
+  id   String @id @default(uuid())
+  name String
+
+  itemUser String
+  item_user User  @relation(fields: [itemUser], references: [id], onDelete: Cascade)
+
+  reviews Review[]
+}
+
+model Review {
+  id         String @id @default(uuid())
+  reviewText String
+
+  // reviewID String
+  // review   User   @relation(fields: [reviewID], references: [id], onDelete: Cascade)
+
+  itemID String
+  item   Item   @relation(fields: [itemID], references: [id], onDelete: Cascade)
+
+  comments Comment[]
+}
+
+model Comment {
+  id          String @id @default(uuid())
+  commentText String
+
+  commentID String
+  comment   User   @relation(fields: [commentID], references: [id], onDelete: Cascade)
+
+  reviewComment  String
+  review_Comment Review @relation(fields: [reviewComment], references: [id], onDelete: Cascade)
 }

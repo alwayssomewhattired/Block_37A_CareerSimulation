@@ -8,8 +8,12 @@ app.use(express.json());
 
 app.use("/api/auth", require("./auth/index"));
 app.use("/api/items", require("./items/index"));
+app.use("/api/items", require("./reviews/index"));
+app.use("/api/items", require("./comments/index"));
 app.use("/api/reviews", require("./reviews/index"));
 app.use("/api/comments", require("./comments/index"));
+app.use("/api/users", require("./reviews/index"));
+app.use("/api/users", require("./comments/index"));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

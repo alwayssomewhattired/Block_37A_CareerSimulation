@@ -50,7 +50,7 @@ router.post("/login", async (req, res, next) => {
 router.get("/me", isLoggedIn, async (req, res, next) => {
   try {
     req.user == undefined
-      ? req.status(401).send("No user logged in.")
+      ? res.status(401).send("No user logged in.")
       : res.status(200).send(req.user);
   } catch (error) {
     next(error);
